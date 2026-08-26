@@ -10,11 +10,10 @@ gsap.registerPlugin(ScrollTrigger);
 export function useSmoothScroll() {
   useEffect(() => {
     const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      direction: 'vertical',
-      smoothWheel: true,
-    });
+  duration: 1.2,
+  easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+  smoothWheel: true, // <-- La propiedad direction fue eliminada
+  });
 
     lenis.on('scroll', ScrollTrigger.update);
 
