@@ -1,4 +1,4 @@
-import type { Metadata } from 'main';
+import type { Metadata } from 'next';
 import './globals.css';
 import ClientLayout from '@/components/ClientLayout';
 
