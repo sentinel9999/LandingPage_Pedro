@@ -5,10 +5,10 @@ import gsap from 'gsap';
 import Image from 'next/image';
 
 const skills = [
-  { name: 'React & Next.js 15', level: 95, cat: 'Frontend', icon: '⚛', image: '/img/image4.png' },
-  { name: 'TypeScript', level: 90, cat: 'Core', icon: 'TS', image: '/img/Logo.png' },
-  { name: 'Motion & GSAP', level: 85, cat: 'UI/UX', icon: '✨', image: '/img/Arcane.png' },
-  { name: 'C++ & MicroPython', level: 80, cat: 'Firmware', icon: '⚡', image: '/img/foto.png' },
+  { name: 'Animation', level: 95, cat: 'Design', icon: '⚛', image: '/img/image4.png' },
+  { name: 'Cartoon', level: 80, cat: 'Design', icon: 'TS', image: '/img/Logo.png' },
+  { name: 'Static image', level: 85, cat: 'Social media', icon: '✨', image: '/img/Arcane.png' },
+  { name: 'Photos', level: 70, cat: 'Photos', icon: '⚡', image: '/img/foto.png' },
 ];
 
 export default function BentoCards() {
@@ -17,70 +17,102 @@ export default function BentoCards() {
     const x = (e.clientX - left - width / 2) / 25;
     const y = (e.clientY - top - height / 2) / 25;
     gsap.to(target.querySelector('.card-3d-target'), { 
-      rotationY: x, rotationX: -y, ease: "power2.out", duration: 0.5 
+      rotationY: x, 
+      rotationX: -y, 
+      ease: "power2.out", 
+      duration: 0.5 
     });
   };
   
   const handleMouseLeave = (target: HTMLElement) => {
     gsap.to(target.querySelector('.card-3d-target'), { 
-      rotationY: 0, rotationX: 0, ease: "power3.out", duration: 1 
+      rotationY: 0, 
+      rotationX: 0, 
+      ease: "power3.out", 
+      duration: 1 
     });
   };
 
   return (
-    <section id="capacidades" className="py-24 px-6 max-w-5xl mx-auto relative bg-neutral-950 text-white">
+    <section id="capacidades" className="py-32 px-6 max-w-7xl mx-auto relative bg-[#030303] text-white">
       
-      <div className="text-center max-w-xl mx-auto mb-12">
-        <span className="inline-block text-[9px] font-extrabold uppercase tracking-[0.4em] text-purple-400 px-4 py-1.5 rounded-full bg-purple-900 bg-opacity-20 border border-purple-800 mb-4">
-          02 / Capacidades Técnicas
+      {/* Encabezado */}
+      <div className="text-center max-w-xl mx-auto mb-20">
+        <span className="inline-block text-[10px] font-extrabold uppercase tracking-[0.4em] text-purple-400 px-4 py-1.5 rounded-full bg-purple-900/20 border border-purple-800 mb-4">
+          02 / Skills & Mastery
         </span>
-        <h2 className="text-3xl sm:text-4xl font-black uppercase tracking-tight">
-          Arquitectura & <span className="text-purple-400">Control</span>
+        <h2 className="text-4xl sm:text-5xl font-black uppercase tracking-tight">
+          Habilidades & <span className="text-purple-400">Técnicas</span>
         </h2>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+      {/* Grid con mayor separación (gap-10 en móvil, gap-12 en desktop) */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-10 max-w-6xl mx-auto">
         {skills.map((skill, index) => (
           <motion.div
             key={skill.name}
-            initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.4, delay: index * 0.1 }}
+            initial={{ opacity: 0, y: 30 }} 
+            whileInView={{ opacity: 1, y: 0 }} 
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.5, delay: index * 0.1 }}
             onMouseMove={(e) => handleMouseMove(e, e.currentTarget)} 
             onMouseLeave={(e) => handleMouseLeave(e.currentTarget)}
-            // 1. EL PADRE: Altura estricta y perspectiva fija. No tiene overflow hidden.
-            className="relative h-[280px] w-full [perspective:1000px] cursor-pointer group flex-none"
+            className="relative h-[320px] sm:h-[350px] w-full [perspective:1000px] cursor-pointer group flex-none"
           >
-            {/* 2. EL HIJO ANIMADO: Rota pero NO recorta. */}
+            {/* Contenedor 3D */}
             <div className="card-3d-target w-full h-full relative [transform-style:preserve-3d] will-change-transform">
               
-              {/* 3. EL CONTENEDOR DE RECORTE SEGURO: Aísla la imagen para que nunca se desborde */}
-              <div className="absolute inset-0 rounded-3xl overflow-hidden border border-neutral-800 bg-neutral-900 shadow-2xl [transform:translateZ(0)]">
+              {/* Contenedor de recorte */}
+              <div className="absolute inset-0 rounded-[2rem] overflow-hidden border border-white/15 bg-neutral-950 shadow-2xl [transform:translateZ(0)] transition-colors duration-500 group-hover:border-purple-500/50 group-hover:shadow-[0_0_40px_rgba(168,85,247,0.25)]">
+                
+                {/* Imagen nítida con zoom */}
                 <Image 
-                  src={skill.image} alt={skill.name} fill sizes="(max-width: 768px) 100vw, 50vw"
-                  className="object-cover opacity-40 group-hover:opacity-70 group-hover:scale-105 transition-transform duration-700" 
+                  src={skill.image} 
+                  alt={skill.name} 
+                  fill 
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="object-cover object-center opacity-90 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700 ease-out" 
                 />
                 
-                <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/70 to-transparent pointer-events-none" />
+                {/* Sombra suave solo en la base para proteger el texto */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent pointer-events-none" />
                 
-                <div className="absolute inset-0 p-6 flex flex-col justify-between z-20 pointer-events-none">
+                {/* Contenido */}
+                <div className="absolute inset-0 p-8 flex flex-col justify-between z-20 pointer-events-none">
+                  
+                  {/* Fila Superior */}
                   <div className="flex justify-between items-start">
-                    <div className="w-12 h-12 rounded-xl bg-neutral-950 border border-neutral-800 flex items-center justify-center text-lg shadow-inner">
+                    <div className="w-12 h-12 rounded-2xl bg-black/80 border border-white/20 backdrop-blur-md flex items-center justify-center text-lg shadow-lg group-hover:border-purple-500/60 transition-colors">
                       {skill.icon}
                     </div>
-                    <span className="text-[10px] font-bold uppercase tracking-widest text-neutral-300 px-3 py-1 rounded-full border border-neutral-800 bg-black bg-opacity-60 flex-none">
+                    <span className="text-[9px] font-black uppercase tracking-[0.2em] text-white px-4 py-1.5 rounded-full border border-white/20 bg-black/80 backdrop-blur-md flex-none shadow-md">
                       {skill.cat}
                     </span>
                   </div>
                   
+                  {/* Fila Inferior: Título y Progreso */}
                   <div>
-                    <h3 className="text-lg font-black uppercase tracking-wide text-white mb-3">{skill.name}</h3>
-                    <div className="w-full h-1.5 bg-neutral-800 rounded-full overflow-hidden relative">
-                      <div style={{ width: `${skill.level}%` }} className="absolute top-0 left-0 h-full bg-gradient-to-r from-purple-600 to-purple-400 rounded-full transition-all duration-1000" />
+                    <h3 className="text-2xl font-black uppercase tracking-tight text-white mb-4 drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)] group-hover:text-purple-300 transition-colors">
+                      {skill.name}
+                    </h3>
+                    
+                    <div className="w-full h-2 bg-black/60 border border-white/10 rounded-full overflow-hidden relative backdrop-blur-md">
+                      <motion.div 
+                        initial={{ width: 0 }}
+                        whileInView={{ width: `${skill.level}%` }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 1.2, ease: "easeOut", delay: 0.2 }}
+                        className="absolute top-0 left-0 h-full bg-gradient-to-r from-purple-600 to-purple-400 rounded-full shadow-[0_0_14px_rgba(168,85,247,0.9)]" 
+                      />
                     </div>
+                    
                     <div className="flex justify-end mt-2">
-                      <span className="text-[10px] font-black text-neutral-400">{skill.level}%</span>
+                      <span className="text-[11px] font-black tracking-widest text-neutral-300 drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">
+                        {skill.level}%
+                      </span>
                     </div>
                   </div>
+
                 </div>
               </div>
 
