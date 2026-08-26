@@ -11,7 +11,6 @@ export default function Hero() {
   const buttonsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Animación de cascada fluida para los textos (Reveal)
     const tl = gsap.timeline({ defaults: { ease: 'power4.out' } });
     
     gsap.set([badgeRef.current, titleRef.current, subtitleRef.current, buttonsRef.current], { opacity: 0, y: 30 });
@@ -22,11 +21,21 @@ export default function Hero() {
       .to(buttonsRef.current, { opacity: 1, y: 0, duration: 1 }, "-=0.8");
   }, []);
 
+  // Función para conectar el scroll suave con GSAP / Lenis
+  const handleScrollTo = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
+    e.preventDefault();
+    const lenis = (window as any).lenis;
+    if (lenis?.scrollTo) {
+      lenis.scrollTo(targetId, { offset: -40, duration: 1.4 });
+    } else {
+      document.querySelector(targetId)?.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
-    // NOTA: Se agregó pt-32 (padding-top) para evitar el choque con el Navbar
     <section className="relative w-full min-h-screen flex flex-col justify-center items-center text-center overflow-hidden bg-[#030303] px-6 pt-32 pb-20">
       
-      {/* DINAMISMO Y SOMBRAS: Luces volumétricas animadas en el fondo */}
+      {/* Luces volumétricas animadas */}
       <div className="absolute inset-0 z-0 flex justify-center items-center pointer-events-none">
         <motion.div 
           animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.6, 0.3] }}
@@ -40,7 +49,7 @@ export default function Hero() {
         />
       </div>
 
-      {/* CONTENIDO PRINCIPAL */}
+      {/* Contenido Principal */}
       <div className="relative z-10 w-full max-w-5xl flex flex-col items-center">
         
         {/* Badge */}
@@ -54,9 +63,9 @@ export default function Hero() {
         </div>
 
         {/* Título Principal */}
-        <div className="relative mb-5 md:mb-15 w-full">
+        <div className="relative mb-5 md:mb-12 w-full">
           <h1 ref={titleRef} className="text-[4rem] sm:text-[6rem] md:text-[8rem] lg:text-[8rem] font-black uppercase tracking-tighter leading-[0.85] text-white drop-shadow-2xl m-0">
-              Nombre <br />
+            Nombre <br />
             <span className="bg-gradient-to-b from-white via-neutral-200 to-neutral-500 bg-clip-text text-transparent">
               Apellido
             </span>
@@ -75,13 +84,20 @@ export default function Hero() {
 
         {/* Botones de Acción */}
         <div ref={buttonsRef} className="flex flex-col sm:flex-row gap-4 sm:gap-6 w-full sm:w-auto">
-          <a href="#galeria" className="group relative flex items-center justify-center gap-3 px-8 py-4 bg-white text-black text-[11px] font-black uppercase tracking-[0.2em] rounded-full overflow-hidden transition-transform hover:scale-105 shadow-[0_0_30px_rgba(255,255,255,0.15)]">
+          <a 
+            href="#galeria" 
+            onClick={(e) => handleScrollTo(e, '#galeria')}
+            className="group relative flex items-center justify-center gap-3 px-8 py-4 bg-white text-black text-[11px] font-black uppercase tracking-[0.2em] rounded-full overflow-hidden transition-transform hover:scale-105 shadow-[0_0_30px_rgba(255,255,255,0.15)]"
+          >
             <span className="relative z-10">Explorar Escenas</span>
-            {/* Flecha corregida a morado */}
             <span className="relative z-10 text-purple-600 text-lg transition-transform group-hover:translate-x-1 group-hover:-translate-y-1">↗</span>
           </a>
           
-          <a href="#contacto" className="flex items-center justify-center px-8 py-4 bg-transparent text-white border border-white/20 text-[11px] font-black uppercase tracking-[0.2em] rounded-full hover:bg-white/10 hover:border-white/40 transition-colors">
+          <a 
+            href="#contacto" 
+            onClick={(e) => handleScrollTo(e, '#contacto')}
+            className="flex items-center justify-center px-8 py-4 bg-transparent text-white border border-white/20 text-[11px] font-black uppercase tracking-[0.2em] rounded-full hover:bg-white/10 hover:border-white/40 transition-colors"
+          >
             Contactar Sistema
           </a>
         </div>

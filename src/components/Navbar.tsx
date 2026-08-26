@@ -1,4 +1,3 @@
-// src/components/Navbar.tsx
 'use client';
 
 import Link from 'next/link';
@@ -12,7 +11,6 @@ export default function Navbar() {
   const lastScrollYRef = useRef(0);
 
   useEffect(() => {
-    // Animación de entrada inicial
     gsap.fromTo(
       navContainerRef.current,
       { y: -120, opacity: 0 },
@@ -45,27 +43,22 @@ export default function Navbar() {
       }
     };
 
-    // 1. Detección por movimiento del mouse (si sube a la parte superior < 80px)
     const handleMouseMove = (e: MouseEvent) => {
       if (e.clientY <= 90) {
         showNavbar();
       } else if (window.scrollY > 100 && isVisibleRef.current) {
-        // Ocultar si el cursor se aleja de la parte superior y ya se hizo scroll
         hideNavbar();
       }
     };
 
-    // 2. Detección por scroll (se oculta al bajar, se muestra arriba del todo)
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
 
       if (currentScrollY < 50) {
         showNavbar();
       } else if (currentScrollY > lastScrollYRef.current && currentScrollY > 100) {
-        // Scrolleando hacia abajo
         hideNavbar();
       } else if (currentScrollY < lastScrollYRef.current) {
-        // Scrolleando hacia arriba
         showNavbar();
       }
 
@@ -80,6 +73,23 @@ export default function Navbar() {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
+
+  const handleSmoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
+    e.preventDefault();
+    setActive(targetId);
+
+    const lenis = (window as any).lenis;
+    if (lenis) {
+      lenis.scrollTo(targetId, {
+        offset: -40,
+        duration: 1.6,
+        easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      });
+    } else {
+      const el = document.querySelector(targetId);
+      el?.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   return (
     <div 
@@ -121,28 +131,37 @@ export default function Navbar() {
           boxShadow: '0 10px 30px rgba(0, 0, 0, 0.8)'
         }}
       >
-        {/* Reflejo superior Glassmorphism */}
         <div className="absolute top-0 left-1/4 w-1/2 h-[1px] bg-gradient-to-r from-transparent via-white/30 to-transparent opacity-50" />
         <div className="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent pointer-events-none rounded-full" />
 
-        {/* Logotipo */}
+        {/* Logotipo: Scroll al inicio */}
         <MagneticItem>
-          <Link href="/" style={{ position: 'relative', zIndex: 10, fontSize: '12px', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.3em', color: '#ffffff', textDecoration: 'none' }}>
+          <a 
+            href="#" 
+            onClick={(e) => {
+              e.preventDefault();
+              const lenis = (window as any).lenis;
+              if (lenis) lenis.scrollTo(0, { duration: 1.6 });
+              else window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
+            style={{ position: 'relative', zIndex: 10, fontSize: '12px', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.3em', color: '#ffffff', textDecoration: 'none' }}
+          >
             Portafolio<span style={{ color: '#a855f7' }}>.</span>
-          </Link>
+          </a>
         </MagneticItem>
 
-        {/* Enlaces centrales */}
+        {/* Enlaces con navegación suave */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px', position: 'relative', zIndex: 10 }}>
-          <MagneticLink href="#galeria" active={active} setActive={setActive}>Galería</MagneticLink>
-          <MagneticLink href="#capacidades" active={active} setActive={setActive}>Capacidades</MagneticLink>
-          <MagneticLink href="#trayectoria" active={active} setActive={setActive}>Trayectoria</MagneticLink>
+          <MagneticLink href="#galeria" active={active} onClick={(e) => handleSmoothScroll(e, '#galeria')}>Galería</MagneticLink>
+          <MagneticLink href="#capacidades" active={active} onClick={(e) => handleSmoothScroll(e, '#capacidades')}>Capacidades</MagneticLink>
+          <MagneticLink href="#trayectoria" active={active} onClick={(e) => handleSmoothScroll(e, '#trayectoria')}>Trayectoria</MagneticLink>
         </div>
 
         {/* Botón de Contacto */}
         <MagneticItem>
           <a 
             href="#contacto" 
+            onClick={(e) => handleSmoothScroll(e, '#contacto')}
             className="group/btn relative overflow-hidden transition-all duration-500"
             style={{
               display: 'inline-block',
@@ -170,14 +189,14 @@ export default function Navbar() {
   );
 }
 
-function MagneticLink({ children, href, active, setActive }: { children: React.ReactNode, href: string, active: string, setActive: (v: string) => void }) {
+function MagneticLink({ children, href, active, onClick }: { children: React.ReactNode, href: string, active: string, onClick: (e: React.MouseEvent<HTMLAnchorElement>) => void }) {
   const isActive = active === href;
 
   return (
     <MagneticItem>
       <a 
         href={href} 
-        onClick={() => setActive(href)}
+        onClick={onClick}
         className="group/link relative flex items-center justify-center transition-colors duration-500"
         style={{ 
           padding: '8px 16px',
