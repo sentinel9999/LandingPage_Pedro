@@ -48,17 +48,17 @@ export default function Hero() {
           <div className="flex items-center gap-3 px-5 py-2 bg-neutral-900/50 backdrop-blur-md border border-white/10 rounded-full shadow-lg">
             <span className="w-1.5 h-1.5 rounded-full bg-purple-500 animate-pulse shadow-[0_0_8px_#a855f7]" />
             <span className="text-[9px] md:text-xs font-black uppercase tracking-[0.3em] text-neutral-300">
-              Desarrollo & Ingeniería AAA
+              Editor y Desarrollador de Experiencias Digitales
             </span>
           </div>
         </div>
 
         {/* Título Principal */}
-        <div className="relative mb-6 md:mb-10 w-full">
-          <h1 ref={titleRef} className="text-[4rem] sm:text-[6rem] md:text-[8rem] lg:text-[9rem] font-black uppercase tracking-tighter leading-[0.85] text-white drop-shadow-2xl m-0">
-            Pedro <br />
+        <div className="relative mb-5 md:mb-15 w-full">
+          <h1 ref={titleRef} className="text-[4rem] sm:text-[6rem] md:text-[8rem] lg:text-[8rem] font-black uppercase tracking-tighter leading-[0.85] text-white drop-shadow-2xl m-0">
+              Nombre <br />
             <span className="bg-gradient-to-b from-white via-neutral-200 to-neutral-500 bg-clip-text text-transparent">
-              Lopez
+              Apellido
             </span>
           </h1>
         </div>
@@ -66,10 +66,10 @@ export default function Hero() {
         {/* Subtítulo */}
         <div ref={subtitleRef} className="max-w-xl md:max-w-2xl mb-12 flex flex-col gap-3">
           <p className="text-sm md:text-lg font-light text-neutral-400 leading-relaxed m-0">
-            Un ecosistema interactivo impulsado por física de alta gama.
+            Un ecosistema interactivo de soluciones digitales que combina diseño, desarrollo y narrativa para crear experiencias inmersivas y memorables.
           </p>
-          <p className="hidden md:block text-base font-light text-neutral-500 leading-relaxed m-0">
-            Creamos interfaces cinemáticas, arquitecturas robustas y experiencias digitales que redefinen el estándar de la industria.
+          <p className="hidden md:block text-base md:mb-3 font-light text-neutral-500 leading-relaxed m-0">
+            Creamos experiencias digitales que trascienden la pantalla, fusionando arte, tecnología y narrativa para cautivar a tu audiencia.
           </p>
         </div>
 
