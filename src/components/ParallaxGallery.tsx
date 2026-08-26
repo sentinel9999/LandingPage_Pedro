@@ -8,43 +8,43 @@ import gsap from 'gsap';
 const galleryData = [
   {
     id: '1',
-    title: 'Arcane System',
-    category: 'IoT',
-    tech: ['Next.js', 'ESP32', 'Python'],
+    title: 'Arcane First',
+    category: 'Streamers',
+    tech: ['Action', '3D', 'Animation'],
     image: '/img/Arcane.png',
-    description: 'Sistema IoT de monitoreo ambiental y telemetría mecánica con base de datos en tiempo real.',
+    description: 'Canal dedicado al avatar.',
     client: 'INEEL', status: 'Producción'
   },
   {
     id: '2',
-    title: 'Automatización Industrial',
-    category: 'Industrial',
-    tech: ['Modbus', 'SCADA', 'Python'],
-    image: '/img/foto.png',
-    description: 'Gestión de protocolos de cálculo y actualización multiequipo tras visita de ingeniería especializada.',
+    title: 'Goose',
+    category: 'Youtubers',
+    tech: ['Reaction', 'Editing', 'Anime'],
+    image: '/img/logogoose.png',
+    description: 'Canal dedicado a reacciones de anime y videojuegos.',
     client: 'Privado', status: 'Completado'
   },
   {
     id: '3',
-    title: 'Dashboard Next.js 15',
-    category: 'Frontend',
-    tech: ['TypeScript', 'Tailwind', 'Motion'],
-    image: '/img/image4.png',
+    title: 'Tapani',
+    category: 'TikTokers',
+    tech: ['Social Media', 'Content Creation', 'Video Editing'],
+    image: '/img/logotapani.png',
     description: 'Interfaz de usuario avanzada con diseño modular de alto rendimiento y control por inercia.',
     client: 'Startup', status: 'Activo'
   },
   {
     id: '4',
-    title: 'Firmware Core',
-    category: 'Electrónica',
-    tech: ['C++', 'MicroPython', 'SPI'],
-    image: '/img/Logo.png',
+    title: 'Like a Sunset',
+    category: 'Small businesses',
+    tech: ['Instagram', 'TikTok', 'Content Creation'],
+    image: '/img/logosun.png',
     description: 'Desarrollo de scripts de comunicación serial de alta velocidad para hardware embebido.',
     client: 'Open Source', status: 'Desarrollo'
   }
 ];
 
-const categories = ['Todos', 'IoT', 'Industrial', 'Frontend', 'Electrónica'];
+const categories = ['Todos', 'Streamers', 'Youtubers', 'TikTokers', 'Small businesses'];
 
 export default function ParallaxGallery() {
   const [activeCategory, setActiveCategory] = useState('Todos');
@@ -103,13 +103,13 @@ export default function ParallaxGallery() {
             initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
             className="inline-block text-[10px] font-extrabold uppercase tracking-[0.4em] text-purple-400 px-4 py-1.5 rounded-full bg-purple-500/10 border border-purple-500/20 mb-6"
           >
-            01 / Escenas & Proyectos
+            01 / Clientes y Proyectos
           </motion.span>
           <motion.h2 
             initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }}
             className="text-4xl sm:text-5xl md:text-6xl font-black uppercase tracking-tight"
           >
-            Galería de <span className="text-purple-400">Ingeniería</span>
+            Galería de <span className="text-purple-400">Proyectos</span>
           </motion.h2>
         </div>
 
@@ -163,64 +163,64 @@ export default function ParallaxGallery() {
         }`}
       >
         <AnimatePresence mode='popLayout'>
-          {filteredItems.map((item, index) => (
-            <motion.div
-              layout
-              initial={{ opacity: 0, scale: 0.9, x: 50 }} 
-              animate={{ opacity: 1, scale: 1, x: 0 }} 
-              exit={{ opacity: 0, scale: 0.8 }}
-              transition={{ duration: 0.5, type: "spring", delay: index * 0.1 }}
-              key={item.id}
-              onClick={() => {
-                if (!isDragging) setSelectedImage(item); // Evita abrir el modal si solo estabas arrastrando
-              }}
-              onMouseMove={(e) => handleCardMouseMove(e, e.currentTarget)}
-              onMouseLeave={(e) => handleCardMouseLeave(e.currentTarget)}
-              // Tarjeta de gran formato
-              className="snap-center shrink-0 w-[85vw] max-w-[850px] h-[400px] md:h-[450px] flex flex-col md:flex-row rounded-[2rem] overflow-hidden group border border-white/10 bg-neutral-900 shadow-xl hover:shadow-[0_0_40px_rgba(168,85,247,0.15)] transition-shadow duration-700 relative pointer-events-auto"
-            >
-              {/* Mitad Imagen */}
-              <div className="relative w-full md:w-1/2 h-1/2 md:h-full bg-neutral-950 overflow-hidden shrink-0 pointer-events-none">
-                <Image 
-                  src={item.image} 
-                  alt={item.title} 
-                  fill 
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                  className="object-cover opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-transform duration-1000 ease-out pointer-events-none" 
-                  draggable={false} // Evita el comportamiento de arrastrar imagen por defecto del navegador
-                />
-                <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-neutral-900/90 via-neutral-900/40 to-transparent pointer-events-none" />
-              </div>
+  {filteredItems.map((item, index) => (
+    <motion.div
+      layout
+      initial={{ opacity: 0, scale: 0.9, x: 50 }} 
+      animate={{ opacity: 1, scale: 1, x: 0 }} 
+      exit={{ opacity: 0, scale: 0.8 }}
+      transition={{ duration: 0.5, type: "spring", delay: index * 0.1 }}
+      key={item.id}
+      onClick={() => {
+        if (!isDragging) setSelectedImage(item);
+      }}
+      onMouseMove={(e) => handleCardMouseMove(e, e.currentTarget)}
+      onMouseLeave={(e) => handleCardMouseLeave(e.currentTarget)}
+      className="snap-center shrink-0 w-[85vw] max-w-[850px] h-[400px] md:h-[450px] flex flex-col md:flex-row rounded-[2rem] overflow-hidden group border border-white/10 bg-neutral-900 shadow-xl hover:shadow-[0_0_40px_rgba(168,85,247,0.15)] transition-shadow duration-700 relative pointer-events-auto"
+    >
+      {/* Mitad Imagen */}
+      <div className="relative w-full md:w-1/2 h-1/2 md:h-full bg-neutral-950 overflow-hidden shrink-0 pointer-events-none p-4 flex items-center justify-center">
+        <div className="relative w-full h-full rounded-2xl overflow-hidden">
+          <Image 
+            src={item.image} 
+            alt={item.title} 
+            fill 
+            sizes="(max-width: 768px) 100vw, 50vw"
+            className="object-cover object-center opacity-85 group-hover:opacity-100 group-hover:scale-105 transition-transform duration-700 ease-out pointer-events-none" 
+            draggable={false}
+          />
+        </div>
+      </div>
 
-              {/* Mitad Texto */}
-              <div className="relative w-full md:w-1/2 h-1/2 md:h-full p-6 md:p-10 flex flex-col justify-center bg-neutral-900/50 backdrop-blur-md overflow-hidden pointer-events-none">
-                <div className="absolute inset-0 bg-gradient-to-bl from-purple-500/0 via-transparent to-purple-500/0 group-hover:to-purple-500/5 transition-colors duration-700 pointer-events-none" />
-                
-                <div className="relative z-10 pointer-events-none">
-                  <span className="inline-block px-3 py-1 text-[8px] font-black uppercase tracking-widest bg-black/60 backdrop-blur-md rounded-full text-purple-300 border border-white/10 mb-4">
-                    {item.category}
-                  </span>
-                  
-                  <h3 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-white mb-3 group-hover:text-purple-300 transition-colors leading-tight">
-                    {item.title}
-                  </h3>
-                  
-                  <p className="text-neutral-400 text-xs sm:text-sm leading-relaxed mb-6 font-light line-clamp-3">
-                    {item.description}
-                  </p>
-                  
-                  <div className="flex flex-wrap gap-2">
-                    {item.tech.slice(0, 3).map(t => (
-                      <span key={t} className="text-[8px] font-bold uppercase tracking-widest text-neutral-300 bg-white/5 backdrop-blur-md px-2.5 py-1 rounded-lg border border-white/10">
-                        {t}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </AnimatePresence>
+      {/* Mitad Texto */}
+      <div className="relative w-full md:w-1/2 h-1/2 md:h-full p-6 md:p-10 flex flex-col justify-center bg-neutral-900/50 backdrop-blur-md overflow-hidden pointer-events-none">
+        <div className="absolute inset-0 bg-gradient-to-bl from-purple-500/0 via-transparent to-purple-500/0 group-hover:to-purple-500/5 transition-colors duration-700 pointer-events-none" />
+        
+        <div className="relative z-10 pointer-events-none">
+          <span className="inline-block px-3 py-1 text-[8px] font-black uppercase tracking-widest bg-black/60 backdrop-blur-md rounded-full text-purple-300 border border-white/10 mb-4">
+            {item.category}
+          </span>
+          
+          <h3 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-white mb-3 group-hover:text-purple-300 transition-colors leading-tight">
+            {item.title}
+          </h3>
+          
+          <p className="text-neutral-400 text-xs sm:text-sm leading-relaxed mb-6 font-light line-clamp-3">
+            {item.description}
+          </p>
+          
+          <div className="flex flex-wrap gap-2">
+            {item.tech.slice(0, 3).map(t => (
+              <span key={t} className="text-[8px] font-bold uppercase tracking-widest text-neutral-300 bg-white/5 backdrop-blur-md px-2.5 py-1 rounded-lg border border-white/10">
+                {t}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  ))}
+</AnimatePresence>
       </motion.div>
 
       {/* Modal Pantalla Completa AAA (Aparece al hacer click en una tarjeta) */}
