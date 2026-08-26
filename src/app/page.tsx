@@ -11,10 +11,10 @@ export default function Page() {
       <Navbar />
       
       {/* Secciones de la página */}
-      <Hero />
-      <ParallaxGallery />
-      <BentoCards />
-      <Timeline />
+      <Hero /> {/* Seccion de inicio /logo/imagen/barra */}
+      <ParallaxGallery /> {/* Contiene las tarjetas de iamgen de galeria */}
+      <BentoCards /> {/* Seccion de cartas con porcentaje */}
+      <Timeline /> {/* Linea del tiempo */}
     </main>
   );
 }

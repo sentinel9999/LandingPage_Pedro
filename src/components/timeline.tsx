@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 
 const timelineData = [
-  { year: '2026', tag: 'Sistemas IoT', title: 'MUSS & Sismedia RT', description: 'Despliegue activo de infraestructura IoT.', image: '/img/Arcane.png' },
+  { year: '2026', tag: 'Sistemas IoT', title: 'Telemetría y Control', description: 'Despliegue activo de infraestructura IoT.', image: '/img/Arcane.png' },
   { year: '2026', tag: 'Consultoría', title: 'Deliverables Técnicos', description: 'Gestión de cronogramas y actualizaciones.', image: '/img/foto.png' },
   { year: '2025', tag: 'Ingeniería', title: 'Control y Automatización', description: 'Desarrollo de firmware para microcontroladores.', image: '/img/Logo.png' },
 ];
